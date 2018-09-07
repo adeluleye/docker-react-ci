@@ -1,0 +1,12 @@
+# Tell Travis we need a copy of docker running
+sudo: required
+services:
+  - docker
+
+# Build our image using Dockerfile.dev
+before_install:
+  - docker build -t adeluleye/docker-react-ci -f Dockerfile.dev .
+
+# Tell Travis how to run our test suite
+script:
+  - docker run adeluleye/docker-react-ci npm run test -- --coverage
