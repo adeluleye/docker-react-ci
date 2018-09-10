@@ -10,3 +10,17 @@ before_install:
 # Tell Travis how to run our test suite
 script:
   - docker run adeluleye/docker-react-ci npm run test -- --coverage
+
+# Deploy to AWS
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-west-2'
+  app: 'docker-react-ci'
+  env: 'DockerReactCi-env'
+  bucket_name: 'elasticbeanstalk-us-west-2-656822776663'
+  bucket_path: 'docker-react-ci'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: '$AWS_SECRET_KEY'
